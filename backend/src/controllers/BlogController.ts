@@ -1,8 +1,10 @@
 import { Context } from "hono";
+import { PrismaClient } from '@prisma/client/edge';
+import { withAccelerate } from '@prisma/extension-accelerate';
 
 export const createBlog= async (c:Context)=>{
     const body = await c.req.json()
-
+    
     return c.json({
         message:'blog created successfully'
     })
