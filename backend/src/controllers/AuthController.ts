@@ -45,8 +45,22 @@ export const signin = async (c:Context)=>{
         const errorMsg = JSON.stringify(validate.error.format(),null,2);
         throw new Error (`bad requrest body found out by zod ${errorMsg}`)
     }
-    const user = prisma
+    const user = await prisma.user.findUnique({
+        where:{
+            email:body.email,
+            password:body.password
+        }
+
+    })
+    if(!user){
+        c.status(404)
+       return c.json({
+        error:"cannot find user with this mail",
+       })
+    }
+    const token = await sign({id:user.id},c.env.JWT_SERECT)
     return c.json({
+        jwt:token,
         message:'sign-in done'
     })
 }
