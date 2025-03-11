@@ -44,7 +44,7 @@ export const signin = async (c:Context)=>{
         const errorMsg = JSON.stringify(validate.error.format(),null,2);
         throw new Error (`bad requrest body found out by zod ${errorMsg}`)
     }
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
         where:{
             email:body.email,
             password:body.password
