@@ -33,7 +33,7 @@ blogRouter.use('/*',async (c, next)=>{
 })
 blogRouter.post('/',createBlog)
 blogRouter.put('/',updateBlog)
-blogRouter.get('/:id',getBlogs)
+blogRouter.get('/',getBlogs)
 blogRouter.get('/bulk',bulkBlogs)
 
 export default blogRouter

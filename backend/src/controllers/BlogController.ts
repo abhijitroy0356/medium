@@ -101,9 +101,17 @@ export const bulkBlogs = async(c:Context)=>{
     const prisma = new PrismaClient({
         datasourceUrl:c.env.DATABASE_URL,
     }).$extends(withAccelerate())
-
-    const allBlogs= await prisma.post.findMany
-    return c.json({
-        allBlogs
-    })
+    try{
+        const allBlogs= await prisma.post.findMany() 
+        const titleOfBlog = allBlogs.map(mp=>mp.title)
+       if(titleOfBlog==null) throw new Error;
+       
+        return c.json({
+           titleOfBlog
+        },200)
+    }catch(err){
+        return c.json({
+            err
+        },411)
+    }
 }
