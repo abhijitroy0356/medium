@@ -1,0 +1,9 @@
+{
+  "name": "@abhijit09988/medium-zods-v1",
+  "version": "1.0.0",
+  "main": "dist/Zods.js",
+  "dependencies": {
+    "@abhijit09988/medium-zods-v1": "file:",
+    "zod": "^3.24.2"
+  }
+}
