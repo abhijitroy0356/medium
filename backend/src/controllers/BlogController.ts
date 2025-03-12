@@ -1,16 +1,15 @@
 import { Context } from "hono";
 import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
-import { createBlogZod, updateBlogZod } from "../validation/blogZod";
+import { createBlogZod, updateBlogZod } from "@abhijit09988/medium-common-zod";
 
 export const createBlog= async (c:Context)=>{
     const body = await c.req.json()
     const checkBlogBody= createBlogZod.safeParse(body)
     if(!checkBlogBody.success){
         return c.json({
-            message:"bad request wrong body",
-            status:500
-        })
+            message:"bad request wrong body"
+        },500)
     }
     const prisma = new PrismaClient({
         datasourceUrl:c.env.DATABASE_URL,

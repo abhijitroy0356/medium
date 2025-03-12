@@ -20,8 +20,9 @@ blogRouter.use('/*',async (c, next)=>{
         }),{status:401})
     }
     const token =header.split(" ")[1];
-    const decoded = await verify(token, c.env.JWT_SERECT);
+    
     try {
+        const decoded = await verify(token, c.env.JWT_SERECT);
         if( decoded && decoded.id && typeof decoded.id === "string"){
             c.set("userId",decoded.id)
            await next();
