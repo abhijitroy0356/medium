@@ -6,11 +6,13 @@ import { createBlogZod, updateBlogZod } from "@abhijit09988/medium-zods-v1";
 export const createBlog= async (c:Context)=>{
     const body = await c.req.json()
     const checkBlogBody= createBlogZod.safeParse(body)
+
     if(!checkBlogBody.success){
         return c.json({
             message:"bad request wrong body"
         },500)
     }
+   
     const prisma = new PrismaClient({
         datasourceUrl:c.env.DATABASE_URL,
     }).$extends(withAccelerate())
@@ -101,12 +103,22 @@ export const bulkBlogs = async(c:Context)=>{
         datasourceUrl:c.env.DATABASE_URL,
     }).$extends(withAccelerate())
     try{
-        const allBlogs= await prisma.post.findMany() 
-        const titleOfBlog = allBlogs.map(mp=>mp.title)
-       if(titleOfBlog==null) throw new Error;
+        const allBlogs= await prisma.post.findMany({
+            select:{
+                content:true,
+                title:true,
+                id:true,
+                author:{
+                    select:{
+                        name:true
+                    }
+                }
+            }
+        }) 
+       if(allBlogs==null) throw new Error;
        
         return c.json({
-           titleOfBlog
+           allBlogs
         },200)
     }catch(err){
         return c.json({

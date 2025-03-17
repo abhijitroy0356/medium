@@ -12,26 +12,26 @@ const blogRouter = new Hono<{
     }
 }>()
 
-blogRouter.use('/*',async (c, next)=>{
-    const header= c.req.header('authorization') || ""
-    if(!header.startsWith("Bearer ")){
+blogRouter.use('/*', async (c, next) => {
+    const token = c.req.header('authorization'); // ✅ Get token directly
+
+    if (!token) {
         return new Response(JSON.stringify({
-            error:"Unauthorized token"
-        }),{status:401})
+            error: "Unauthorized: No token provided"
+        }), { status: 401 });
     }
-    const token =header.split(" ")[1];
-    
+
     try {
         const decoded = await verify(token, c.env.JWT_SERECT);
-        if( decoded && decoded.id && typeof decoded.id === "string"){
-            c.set("userId",decoded.id)
-           await next();
+        if (decoded && decoded.id && typeof decoded.id === "string") {
+            c.set("userId", decoded.id);
+            await next();
         }
     } catch (error) {
         return new Response(JSON.stringify({ error: "Unauthorized: Invalid token" }), { status: 401 });
     }
-    
-})
+});
+
 blogRouter.post('/',createBlog)
 blogRouter.put('/',updateBlog)
 blogRouter.get('/',getBlogs)

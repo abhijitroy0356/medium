@@ -58,6 +58,8 @@ export const signin = async (c:Context)=>{
         error:"cannot find user with this mail",
        })
     }
+    
     const token = await sign({id:user.id},c.env.JWT_SERECT)
+    
     return c.text(token)
 }
