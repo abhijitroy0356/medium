@@ -1,16 +1,35 @@
 import AppBar from "../components/AppBar";
 import BlogCart from "../components/BlogCart"
+import { useBlogs } from "../hooks";
 
 function Blogs() {
+  const {loading,blogs}= useBlogs();
+  if(loading){
+    return (
+      <div>
+
+        loading....
+      </div>
+    )
+  }
+  
+    console.log("ijfndfb")
+
   return (
    
         <div className="">
           <div className="sticky top-0 z-50">
           <AppBar/>
           </div>
-           {blogData.map((c)=>{
+           {blogs.map((c)=>{
             return(
-                <BlogCart authorName={c.authorName} title={c.title} content={c.content} publishedDate={c.publishedDate}/>
+              <BlogCart 
+              key={c.id} 
+              authorName={c.author.name || "Unknown Author"} 
+              title={c.title} 
+              content={c.content} 
+              publishedDate={c.publishedDate} 
+            />
             )
            }) }
         </div>
