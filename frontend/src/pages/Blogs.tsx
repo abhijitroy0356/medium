@@ -1,9 +1,13 @@
+import AppBar from "../components/AppBar";
 import BlogCart from "../components/BlogCart"
 
 function Blogs() {
   return (
    
         <div className="">
+          <div className="sticky top-0 z-50">
+          <AppBar/>
+          </div>
            {blogData.map((c)=>{
             return(
                 <BlogCart authorName={c.authorName} title={c.title} content={c.content} publishedDate={c.publishedDate}/>
@@ -22,9 +26,9 @@ const blogData = [
       publishedDate: "12/03/2024",
     },
     {
-      authorName: "John Doe",
+      authorName: "John Doe roy",
       title: "Understanding Tailwind CSS",
-      content: "Tailwind CSS provides utility-first classes to style components quickly",
+      content: "Tailwind CSS provides utility-first classes to style components quickly Tailwind CSS provides utility-first classes to style components quickly Tailwind CSS provides utility-first classes to style components quickly Tailwind CSS provides utility-first classes to style components quickly Tailwind CSS provides utility-first classes to style components quickly Tailwind CSS provides utility-first classes to style components quickly Tailwind CSS provides utility-first classes to style components quicklyTailwind CSS provides utility-first classes to style components quicklyTailwind CSS provides utility-first classes to style components quicklyTailwind CSS provides utility-first classes to style components quicklyTailwind CSS provides utility-first classes to style components quicklyTailwind CSS provides utility-first classes to style components quicklyTailwind CSS provides utility-first classes to style components quicklyTailwind CSS provides utility-first classes to style components quicklyTailwind CSS provides utility-first classes to style components quicklyTailwind CSS provides utility-first classes to style components quicklyTailwind CSS provides utility-first classes to style components quickly",
       publishedDate: "10/02/2024",
     },
     {
