@@ -1,14 +1,18 @@
+import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 
 interface blogcart{
+    id:string;
     authorName:string;
     title:string;
     content:string;
     publishedDate:string;
 }
-function BlogCart({authorName, title, content, publishedDate}:blogcart) {
+function BlogCart({id,authorName, title, content, publishedDate}:blogcart) {
   return (
+    
     <div className="flex justify-center">
+        <Link to={`/${id}`}>
         <div className="w-[900px]">
         <div className="flex p-5 ">
             <div className="mr-5">
@@ -30,6 +34,7 @@ function BlogCart({authorName, title, content, publishedDate}:blogcart) {
         
         <div className="bg-slate-700 h-[2px] w-full mt-8"></div>
     </div>
+    </Link>
     </div>
     
   )
