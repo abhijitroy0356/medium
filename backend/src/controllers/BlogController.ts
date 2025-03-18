@@ -78,13 +78,23 @@ export const getBlogs =async  (c: Context)=>{
     const prisma = new PrismaClient({
         datasourceUrl:c.env.DATABASE_URL,
     }).$extends(withAccelerate())
-
+    console.log("heck in one")
     try{
         const blog= await prisma.post.findFirst({
             where:{
                 id:blogid
+            },
+            select:{
+                title:true,
+                content:true,
+                author:{
+                    select:{
+                        name:true
+                    }
+                }
             }
         })
+        
         return c.json({
             message:`fetching blog data`,
             blog:blog
@@ -102,6 +112,7 @@ export const bulkBlogs = async(c:Context)=>{
     const prisma = new PrismaClient({
         datasourceUrl:c.env.DATABASE_URL,
     }).$extends(withAccelerate())
+    console.log("heck in bulk")
     try{
         const allBlogs= await prisma.post.findMany({
             select:{

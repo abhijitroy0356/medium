@@ -34,7 +34,7 @@ blogRouter.use('/*', async (c, next) => {
 
 blogRouter.post('/',createBlog)
 blogRouter.put('/',updateBlog)
-blogRouter.get('/',getBlogs)
 blogRouter.get('/bulk',bulkBlogs)
+blogRouter.get('/:id',getBlogs)
 
 export default blogRouter
