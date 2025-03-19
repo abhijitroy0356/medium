@@ -6,7 +6,7 @@ import { createBlogZod, updateBlogZod } from "@abhijit09988/medium-zods-v1";
 export const createBlog= async (c:Context)=>{
     const body = await c.req.json()
     const checkBlogBody= createBlogZod.safeParse(body)
-
+    console.log(body)
     if(!checkBlogBody.success){
         return c.json({
             message:"bad request wrong body"
@@ -32,8 +32,8 @@ export const createBlog= async (c:Context)=>{
     })
     return c.json({
         message:`congratulation your blog ${blog.title} has been posted successfully`,
-        status:200
-    })
+        blog
+    },200)
 }
 
 export const updateBlog = async (c: Context)=>{
